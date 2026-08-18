@@ -1,0 +1,1268 @@
+/* ==========================================================================
+   PeakLog — Clean Light Alpine Design System & Streamlined UI
+   ========================================================================== */
+
+:root {
+  --bg-app: #F8F6F2;
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #F5F2EC;
+  --bg-overlay: rgba(255, 255, 255, 0.94);
+  
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-subtle: #94A3B8;
+
+  --border-light: #E8E4DC;
+  --border-focus: #CBD5E1;
+
+  --alpine-red: #E11D48;
+  --alpine-red-hover: #BE123C;
+  --alpine-red-soft: #FFE4E6;
+  --alpine-amber: #D97706;
+  --alpine-green: #059669;
+  --alpine-blue: #0284C7;
+
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-heading: 'Outfit', -apple-system, sans-serif;
+
+  --shadow-subtle: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-float: 0 8px 24px -4px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-drawer: -8px 0 32px rgba(15, 23, 42, 0.14);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Header Navbar
+   ========================================================================== */
+
+.app-navbar {
+  height: 58px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 40;
+}
+
+.nav-brand-group {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--alpine-red);
+  color: #FFFFFF;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.brand-tagline {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Main Nav Tabs */
+.main-nav-tabs {
+  display: flex;
+  background: var(--bg-card-subtle);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  gap: 2px;
+}
+
+.nav-tab {
+  background: transparent;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.nav-tab:hover {
+  color: var(--text-main);
+}
+
+.nav-tab.is-active {
+  background: var(--bg-card);
+  color: var(--alpine-red);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* Nav Actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-sound {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.btn-sound:hover {
+  background: #FFFFFF;
+  color: var(--text-main);
+}
+
+.btn-sound.is-on {
+  background: #D1FAE5;
+  color: #059669;
+  border-color: #A7F3D0;
+}
+
+.btn-primary {
+  background: var(--alpine-red);
+  color: #FFFFFF;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 7px 15px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: var(--alpine-red-hover);
+}
+
+.btn-secondary {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Hike Quick Switcher Bar (Clickable Route Pills)
+   ========================================================================== */
+
+.hike-quickbar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.quickbar-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-subtle);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.quickbar-pills {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.hike-pill {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.hike-pill:hover {
+  border-color: var(--text-muted);
+  background: #FFFFFF;
+}
+
+.hike-pill.is-active {
+  background: var(--alpine-red-soft);
+  color: var(--alpine-red);
+  border-color: rgba(225, 29, 72, 0.4);
+  font-weight: 700;
+}
+
+.pill-dist {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.hike-pill.is-active .pill-dist {
+  color: var(--alpine-red);
+}
+
+/* ==========================================================================
+   Main App Content Area
+   ========================================================================== */
+
+.app-main-content {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.stage-view-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+/* Viewport Canvas Area */
+.canvas-viewport {
+  flex: 1;
+  position: relative;
+  background: #ECE8E1;
+  overflow: hidden;
+}
+
+.viewport-canvas-3d,
+.viewport-canvas-map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* Quick Tip Pill */
+.quick-tip-pill {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-overlay);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-subtle);
+  z-index: 20;
+}
+
+.tip-dismiss-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 2px;
+}
+
+/* Big Center Hero Play Button */
+.hero-center-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--alpine-red);
+  color: #FFFFFF;
+  border: none;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4);
+  z-index: 25;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-center-play-btn:hover {
+  background: var(--alpine-red-hover);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.hero-center-play-btn.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.hero-play-icon {
+  font-size: 1.2rem;
+}
+
+.hero-play-text {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* Floating Telemetry HUD */
+.floating-hud-card {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-float);
+  z-index: 20;
+}
+
+.hud-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hud-val {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.hud-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border-light);
+}
+
+/* Floating Active Waypoint / Story Card */
+.floating-waypoint-card {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 280px;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  box-shadow: var(--shadow-float);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.wp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wp-type-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--alpine-red);
+  background: var(--alpine-red-soft);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.wp-time-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.wp-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.wp-description {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.wp-thumb-img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.wp-view-photo-btn {
+  background: transparent;
+  border: none;
+  color: var(--alpine-red);
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  padding: 2px 0;
+}
+
+.wp-view-photo-btn:hover {
+  text-decoration: underline;
+}
+
+/* Camera Dock */
+.camera-floating-dock {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  z-index: 20;
+  box-shadow: var(--shadow-subtle);
+}
+
+.cam-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 5px 9px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.cam-btn:hover {
+  color: var(--text-main);
+}
+
+.cam-btn.is-active {
+  background: var(--bg-card);
+  color: var(--alpine-red);
+  font-weight: 700;
+  box-shadow: var(--shadow-subtle);
+}
+
+/* ==========================================================================
+   Bottom Control Deck & Elevation Profile
+   ========================================================================== */
+
+.bottom-control-deck {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  z-index: 30;
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.elevation-deck-section {
+  padding: 8px 20px 0 20px;
+}
+
+.elevation-profile-card {
+  position: relative;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.profile-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.profile-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.profile-summary {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.profile-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.dot-gentle { background: #10B981; }
+.dot-mod { background: #D97706; }
+.dot-steep { background: #EA580C; }
+.dot-extreme { background: #E11D48; }
+
+.unit-toggle-btn {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 110px;
+  cursor: crosshair;
+}
+
+#elevationCanvas {
+  display: block;
+  width: 100%;
+  height: 110px;
+}
+
+.profile-tooltip {
+  position: absolute;
+  display: none;
+  background: rgba(15, 23, 42, 0.92);
+  color: #FFFFFF;
+  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+  font-size: 0.72rem;
+  pointer-events: none;
+  z-index: 30;
+  white-space: nowrap;
+}
+
+/* Timeline Deck Bar */
+.timeline-deck-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 20px 10px 20px;
+  gap: 14px;
+  background: var(--bg-card-subtle);
+  border-top: 1px solid var(--border-light);
+}
+
+.deck-play-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--alpine-red);
+  color: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.deck-play-btn:hover {
+  background: var(--alpine-red-hover);
+}
+
+.deck-reset-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 6px 9px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.deck-slider-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.deck-slider {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  appearance: none;
+  background: #CBD5E1;
+  outline: none;
+  cursor: pointer;
+}
+
+.deck-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--alpine-red);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.deck-progress-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.deck-speed-group {
+  display: flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.speed-pill {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.speed-pill.is-active {
+  background: var(--alpine-red-soft);
+  color: var(--alpine-red);
+}
+
+.deck-journal-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.deck-journal-btn:hover {
+  border-color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Expedition Journal Drawer (Slide-Over)
+   ========================================================================== */
+
+.journal-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.journal-drawer-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.journal-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 440px;
+  max-width: 90vw;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-drawer);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.journal-drawer-backdrop.is-open .journal-drawer {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.drawer-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.drawer-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Overview card inside drawer */
+.drawer-summary-card {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.drawer-hike-kicker {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--alpine-red);
+  text-transform: uppercase;
+}
+
+.drawer-hike-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 4px 0 12px 0;
+}
+
+.drawer-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 10px;
+}
+
+.drawer-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+.drawer-stat-lbl {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.drawer-stat-val {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Summit Passport Tab
+   ========================================================================== */
+
+.passport-view-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px 40px;
+  background: var(--bg-app);
+}
+
+.passport-book-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.passport-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  border-bottom: 2px dashed var(--border-light);
+  padding-bottom: 16px;
+}
+
+.passport-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--alpine-red);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.passport-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.passport-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.passport-stats-chips {
+  display: flex;
+  gap: 12px;
+}
+
+.stat-badge-chip {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-subtle);
+}
+
+.stat-badge-chip .stat-val {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--alpine-red);
+}
+
+.stat-badge-chip .stat-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.passport-stamp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.stamp-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-subtle);
+  transition: all 0.2s ease;
+}
+
+.stamp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-float);
+}
+
+.stamp-seal-badge {
+  background: var(--bg-card-subtle);
+  border: 2px dashed var(--stamp-accent);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+  position: relative;
+}
+
+.seal-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.seal-header {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--stamp-accent);
+}
+
+.seal-icon {
+  font-size: 1.6rem;
+  color: var(--stamp-accent);
+}
+
+.seal-peak {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.seal-elevation {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--stamp-accent);
+}
+
+.seal-coords, .seal-date {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.seal-ink-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  border: 2px solid var(--alpine-red);
+  color: var(--alpine-red);
+  padding: 3px 10px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.stamp-hike-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.stamp-region {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.stamp-telemetry-row {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 6px;
+}
+
+.stamp-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+
+.stamped-check-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--alpine-green);
+}
+
+.stamp-action-btn {
+  background: var(--alpine-amber);
+  color: #FFFFFF;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.view-hike-btn {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  color: var(--alpine-red);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Modals & Lightboxes
+   ========================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-dialog {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-dialog-photo {
+  max-width: 680px;
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 12px 20px;
+  background: var(--bg-card-subtle);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gpx-drop-zone {
+  border: 2px dashed var(--border-focus);
+  border-radius: var(--radius-md);
+  padding: 28px 16px;
+  text-align: center;
+  background: var(--bg-card-subtle);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gpx-drop-zone:hover, .gpx-drop-zone.drag-over {
+  border-color: var(--alpine-red);
+  background: var(--alpine-red-soft);
+}
+
+.drop-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.drop-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.drop-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.lightbox-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.lightbox-caption {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .app-navbar {
+    padding: 0 12px;
+  }
+  .main-nav-tabs {
+    display: none;
+  }
+  .floating-hud-card {
+    top: 10px;
+    left: 10px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .floating-waypoint-card {
+    display: none;
+  }
+  .passport-view-wrapper {
+    padding: 20px 14px;
+  }
+}

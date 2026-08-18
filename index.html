@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeakLog — 3D Hike Replay & Trail Journal</title>
+  <meta name="description" content="Relive alpine hiking adventures with interactive 3D terrain replay, elevation profiles, and summit passport stamps." />
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.svg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+</head>
+<body>
+  <!-- Top Simple Navigation Bar -->
+  <header class="app-navbar">
+    <div class="nav-brand-group">
+      <a href="#" class="brand-logo" id="brandLogoBtn">
+        <div class="brand-icon">▲</div>
+        <div class="brand-text">
+          <span class="brand-name">PeakLog</span>
+          <span class="brand-tagline">3D Hike Journal</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Main Navigation Tabs (Crystal Clear) -->
+    <nav class="main-nav-tabs">
+      <button class="nav-tab is-active" id="tab3dReplay" data-view="3d">
+        <span class="tab-icon">🏔️</span>
+        <span>3D Trail Replay</span>
+      </button>
+      <button class="nav-tab" id="tabTopoMap" data-view="map">
+        <span class="tab-icon">🗺️</span>
+        <span>2D Topo Map</span>
+      </button>
+      <button class="nav-tab" id="tabPassport" data-view="passport">
+        <span class="tab-icon">🎖️</span>
+        <span>Summit Passport</span>
+      </button>
+    </nav>
+
+    <!-- Top Right Actions -->
+    <div class="nav-actions">
+      <button class="btn-sound" id="audioToggleBtn" title="Toggle Alpine Wind & Step Audio">
+        <span id="audioIcon">🔈</span> Sound
+      </button>
+      <button class="btn-primary" id="openImportModalBtn">
+        <span>+</span> Import GPX
+      </button>
+    </div>
+  </header>
+
+  <!-- Hike Quick Switcher Bar (Visible, Clickable Pills) -->
+  <section class="hike-quickbar" id="hikeQuickbar">
+    <div class="quickbar-label">SELECT HIKE:</div>
+    <div class="quickbar-pills" id="hikePillsContainer">
+      <!-- Populated dynamically with hike pills -->
+    </div>
+  </section>
+
+  <!-- Main View Area -->
+  <main class="app-main-content">
+    
+    <!-- 1. TRAIL REPLAY & MAP STAGE (Active by default) -->
+    <div class="stage-view-wrapper" id="stageViewWrapper">
+      
+      <!-- 3D / Map Canvas Container -->
+      <div class="canvas-viewport" id="canvasViewport">
+        
+        <!-- 3D Three.js Container -->
+        <div class="viewport-canvas-3d" id="threeContainer"></div>
+        
+        <!-- 2D Leaflet Container (Hidden when in 3D mode) -->
+        <div class="viewport-canvas-map" id="mapContainer" style="display: none;"></div>
+
+        <!-- Floating Welcome / Quick Tip Banner -->
+        <div class="quick-tip-pill" id="quickTipPill">
+          <span>💡 Click <strong>Play Replay</strong> below or drag the mountain to rotate 360°</span>
+          <button class="tip-dismiss-btn" id="dismissTipBtn">✕</button>
+        </div>
+
+        <!-- Big Center Play Button (Visible when paused at start) -->
+        <button class="hero-center-play-btn" id="heroPlayBtn">
+          <span class="hero-play-icon">▶</span>
+          <span class="hero-play-text">Start 3D Flyover</span>
+        </button>
+
+        <!-- Floating Telemetry HUD (Minimal & Clean) -->
+        <div class="floating-hud-card">
+          <div class="hud-stat">
+            <span class="hud-lbl">Elevation</span>
+            <span class="hud-val" id="hudElevation">--</span>
+          </div>
+          <div class="hud-divider"></div>
+          <div class="hud-stat">
+            <span class="hud-lbl">Distance</span>
+            <span class="hud-val" id="hudDistance">--</span>
+          </div>
+          <div class="hud-divider"></div>
+          <div class="hud-stat">
+            <span class="hud-lbl">Gradient</span>
+            <span class="hud-val" id="hudGrade">--</span>
+          </div>
+        </div>
+
+        <!-- Floating Active Waypoint / Story Card -->
+        <div class="floating-waypoint-card" id="floatingWaypointCard">
+          <div class="wp-card-header">
+            <span class="wp-type-badge" id="wpTypeBadge">TRAILHEAD</span>
+            <span class="wp-time-stamp" id="wpTimeStamp">07:30</span>
+          </div>
+          <h3 class="wp-title" id="wpTitle">Loading route...</h3>
+          <p class="wp-description" id="wpDescription">Starting expedition.</p>
+          <img id="wpThumbnail" src="" alt="Trail waypoint" class="wp-thumb-img" />
+          <button class="wp-view-photo-btn" id="wpViewPhotoBtn">View Full Photo & Story →</button>
+        </div>
+
+        <!-- Camera Angle Switcher (Floating bottom-right of canvas) -->
+        <div class="camera-floating-dock" id="cameraDock">
+          <button class="cam-btn is-active" id="camChaseBtn">🎥 Follow Hiker</button>
+          <button class="cam-btn" id="camOrbitBtn">🔄 Free Orbit</button>
+          <button class="cam-btn" id="camTopoBtn">📐 Bird's Eye</button>
+        </div>
+      </div>
+
+      <!-- Bottom Replay & Elevation Bar -->
+      <footer class="bottom-control-deck">
+        
+        <!-- Elevation Profile Canvas -->
+        <div class="elevation-deck-section" id="elevationProfileContainer">
+          <!-- Canvas injected by ElevationProfile.js -->
+        </div>
+
+        <!-- Replay Controls & Timeline Bar -->
+        <div class="timeline-deck-bar">
+          <button class="deck-play-btn" id="deckPlayPauseBtn" title="Play or Pause (Spacebar)">
+            <span id="deckPlayIcon">▶</span>
+          </button>
+          
+          <button class="deck-reset-btn" id="deckResetBtn" title="Restart from Trailhead">
+            ⏮
+          </button>
+
+          <!-- Smooth Scrub Slider -->
+          <div class="deck-slider-wrap">
+            <input type="range" id="timelineSlider" class="deck-slider" min="0" max="99" value="0" step="1" />
+            <div class="deck-progress-text" id="deckProgressText">0.0 / 0.0 km</div>
+          </div>
+
+          <!-- Speed Controls -->
+          <div class="deck-speed-group">
+            <button class="speed-pill is-active" data-speed="1">1x</button>
+            <button class="speed-pill" data-speed="2">2x</button>
+            <button class="speed-pill" data-speed="5">5x</button>
+          </div>
+
+          <!-- Full Journal Drawer Trigger -->
+          <button class="deck-journal-btn" id="openJournalDrawerBtn">
+            📖 Expedition Logbook
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- 2. PASSPORT VIEW (Shown when Passport tab is active) -->
+    <div class="passport-view-wrapper" id="passportViewWrapper" style="display: none;">
+      <!-- Populated by SummitPassport.js -->
+    </div>
+  </main>
+
+  <!-- COLLAPSIBLE EXPEDITION JOURNAL DRAWER (Slide-over) -->
+  <div class="journal-drawer-backdrop" id="journalDrawerBackdrop">
+    <aside class="journal-drawer" id="journalDrawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <span style="font-size: 1.2rem;">📖</span>
+          <h2 class="drawer-title">Expedition Field Logbook</h2>
+        </div>
+        <button class="drawer-close-btn" id="closeJournalDrawerBtn">✕</button>
+      </div>
+
+      <div class="drawer-body" id="journalDrawerContent">
+        <!-- Rendered dynamically -->
+      </div>
+    </aside>
+  </div>
+
+  <!-- MODAL: Photo Lightbox -->
+  <div class="modal-backdrop" id="photoModalBackdrop">
+    <div class="modal-dialog modal-dialog-photo">
+      <div class="modal-header">
+        <h3 class="modal-title" id="photoModalTitle">Trail Photo</h3>
+        <button class="modal-close-btn" id="closePhotoModalBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <img id="photoModalImg" src="" alt="Scenic photo" class="lightbox-img" />
+        <p class="lightbox-caption" id="photoModalCaption"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GPX Importer -->
+  <div class="modal-backdrop" id="importModalBackdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Import GPX Trail Track</h3>
+        <button class="modal-close-btn" id="closeImportModalBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="gpx-drop-zone" id="gpxDropZone">
+          <div class="drop-icon">📁</div>
+          <div class="drop-title">Drop your .GPX file here</div>
+          <div class="drop-desc">Works with Garmin, Strava, Apple Watch, Komoot & AllTrails</div>
+          <input type="file" id="gpxFileInput" accept=".gpx" style="display: none;" />
+        </div>
+        <p style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 14px;">
+          PeakLog will automatically compute distance, elevation profile, and generate an interactive 3D route!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="cancelImportBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
